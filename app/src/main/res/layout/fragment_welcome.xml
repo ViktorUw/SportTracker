@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Witaj, User"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp" />
+
+    <TextView
+        android:id="@+id/where_want_to_train_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wybierz gdzie chcesz dziś trenować"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp"
+
+        >
+
+        <Button
+            android:id="@+id/buttonGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="W siłowni"
+            android:textSize="23sp"
+            android:padding="10dp"
+            android:layout_marginRight="15dp"
+            />
+
+        <Button
+            android:id="@+id/buttonOutdoor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Na zewnątrz"
+            android:textSize="23sp"
+            android:padding="10dp"
+            android:layout_marginLeft="15dp"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/AllExercisesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wszystkie ćwiczenia"
+        android:textSize="23sp"
+
+        android:padding="10dp"
+        />
+
+
+</LinearLayout>

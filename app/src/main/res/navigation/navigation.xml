@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.sporttracker.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="User" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.sporttracker.ui.register.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.sporttracker.ui.WelcomeFragment"
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exercisesFragment"
+        android:name="com.example.sporttracker.ui.exercises.ExercisesFragment"
+        android:label="ExercisesFragment" >
+        <action
+            android:id="@+id/action_exercisesFragment_to_exerciseDetailFragment"
+            app:destination="@id/exerciseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.example.sporttracker.ui.ExerciseDetailFragment"
+        android:label="ExerciseDetailFragment" >
+        <action
+            android:id="@+id/action_exerciseDetailFragment_to_performExerciseFragment"
+            app:destination="@id/performExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/performExerciseFragment"
+        android:name="com.example.sporttracker.ui.perform_exercise.PerformExerciseFragment"
+        android:label="PerformExerciseFragment" />
+    <fragment
+        android:id="@+id/completedExercisesFragment"
+        android:name="com.example.sporttracker.ui.completed_exercises.CompletedExercisesFragment"
+        android:label="Виконано" />
+
+    <fragment
+        android:id="@+id/userDataFragment"
+        android:name="com.example.sporttracker.UserDataFragment"
+        android:label="Профіль" />
+
+</navigation>
