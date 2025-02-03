@@ -32,11 +32,9 @@ class ExerciseDetailFragment : Fragment() {
         val exerciseName = arguments?.getString("exercise_name") ?: ""
         exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 
-        // Загружаем упражнение из базы
         exerciseViewModel.allExercises.observe(viewLifecycleOwner, { exercises ->
             exercise = exercises.find { it.name == exerciseName } ?: return@observe
 
-            // Заполняем информацию на экране
             view.findViewById<TextView>(R.id.textExerciseName).text = exercise.name
             view.findViewById<TextView>(R.id.textExerciseDescription).text = exercise.description
             // Здесь можно загрузить картинку, например, через Glide или Picasso

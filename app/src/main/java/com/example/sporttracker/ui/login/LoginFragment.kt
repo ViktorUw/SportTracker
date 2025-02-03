@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             val username = usernameInput.text.toString()
             val password = passwordInput.text.toString()
 
-            // Вызов метода loginUser из ViewModel
+
             userViewModel.loginUser(username, password,
                 onSuccess = { user ->  // Приняли user
 
@@ -59,14 +59,12 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment, bundle)
                 },
                 onFailure = { message ->
-                    // Показываем сообщение об ошибке
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             )
         }
 
         registerText.setOnClickListener {
-            // Переход на экран регистрации
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }

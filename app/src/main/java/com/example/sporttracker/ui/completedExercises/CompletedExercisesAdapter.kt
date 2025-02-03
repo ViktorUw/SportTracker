@@ -30,17 +30,16 @@ class CompletedExercisesAdapter(private var exercises: List<ExerciseResultWithEx
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val exerciseResultWithExercise = exercises[position]
 
-        // Отображаем название упражнения
-        holder.exerciseName.text = "Упражнение: ${exerciseResultWithExercise.exercise.name}"
-        holder.exerciseResult.text = "Результат: ${exerciseResultWithExercise.exerciseResult.result}"
+
+        holder.exerciseName.text = "Ćwiczenia: ${exerciseResultWithExercise.exercise.name}"
+        holder.exerciseResult.text = "Rezultat: ${exerciseResultWithExercise.exerciseResult.result}"
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        holder.exerciseDate.text = "Дата: ${exerciseResultWithExercise.exerciseResult.date}"
+        holder.exerciseDate.text = "Data: ${exerciseResultWithExercise.exerciseResult.date}"
     }
 
     override fun getItemCount() = exercises.size
 
-    // Метод для обновления списка данных
     fun updateData(newExercises: List<ExerciseResultWithExercise>) {
         exercises = newExercises
         notifyDataSetChanged()

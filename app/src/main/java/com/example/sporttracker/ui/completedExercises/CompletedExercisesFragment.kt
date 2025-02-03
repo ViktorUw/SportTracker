@@ -29,12 +29,12 @@ class CompletedExercisesFragment : Fragment() {
 
         listView = view.findViewById(R.id.completedExercisesListView)
 
-        // Ładujemy wykonane ćwiczenia dla bieżącego użytkownika
+
         exerciseResultViewModel.getResults(userId).observe(viewLifecycleOwner) { results ->
-            // Konwertujemy dane do listy Stringów
+
             val resultStrings = results.map { "${it.id} - ${it.result} - ${it.date}" }
 
-            // Tworzymy adapter dla ListView
+
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, resultStrings)
             listView.adapter = adapter
         }

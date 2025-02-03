@@ -68,7 +68,7 @@ class UserDataFragment : Fragment() {
         val weight = editTextWeight.text.toString().toFloatOrNull() ?: 0f
 
         if (username.isEmpty() || birthdate.isEmpty()) {
-            Toast.makeText(requireContext(), "Заповніть всі поля", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Wypełnij wszystkie pola", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -80,10 +80,10 @@ class UserDataFragment : Fragment() {
             )
 
             userViewModel.updateUser(updatedUser)
-            userViewModel.setUser(updatedUser) // 🔥 Обновляем LiveData в UI
-            Toast.makeText(requireContext(), "Дані збережено!", Toast.LENGTH_SHORT).show()
+            userViewModel.setUser(updatedUser)
+            Toast.makeText(requireContext(), "Dane zaktualizowane!", Toast.LENGTH_SHORT).show()
         } ?: run {
-            Toast.makeText(requireContext(), "Помилка: користувач не знайдений!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Nie znależiono użytkownika!", Toast.LENGTH_SHORT).show()
         }
     }
 

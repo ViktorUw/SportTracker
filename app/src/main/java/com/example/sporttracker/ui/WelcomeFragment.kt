@@ -47,7 +47,6 @@ class WelcomeFragment : Fragment() {
         val bottomNavigation = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavView)
         bottomNavigation.visibility = View.VISIBLE
 
-        // Получаем имя пользователя (Допустим, передаем username через аргументы)
         username = arguments?.getString("username") ?: "User"
         GlobalVariables.userId = arguments?.getInt("userId") ?: -1
 

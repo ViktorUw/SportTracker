@@ -46,21 +46,17 @@ class PerformExerciseFragment : Fragment() {
         buttonSelectDate = view.findViewById(R.id.buttonSelectDate)
         buttonSave = view.findViewById(R.id.buttonSaveExercise)
 
-        // Получаем userId из SharedPreferences
+
         val sharedPrefs = SharedPreferencesManager(requireContext())
         userId = WelcomeFragment.GlobalVariables.userId
 
-        // Получаем exerciseId из аргументов
         exerciseId = arguments?.getInt("exerciseId") ?: 0
 
-        // Устанавливаем текущую дату по умолчанию
         updateDateInView()
 
-        // Обработчик выбора даты
         buttonSelectDate.setOnClickListener {
             showDatePickerDialog()
         }
-        // Обработчик сохранения результата
         buttonSave.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 saveExerciseResult()
