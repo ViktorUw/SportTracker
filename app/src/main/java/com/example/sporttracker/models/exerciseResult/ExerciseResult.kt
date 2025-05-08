@@ -10,5 +10,5 @@ data class ExerciseResult(
     val userId: Int,
     val exerciseId: Int,
     val result: String,
-    val date: String = Date().toString()
+    val date: String
 )

@@ -16,5 +16,9 @@ class SharedPreferencesManager(context: Context) {
     }
 
 
+    fun clearUserData() {
+        prefs.edit().clear().apply()
+    }
+
 
 }

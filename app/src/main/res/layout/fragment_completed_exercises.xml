@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -13,16 +14,28 @@
         android:text="Wykonane ćwiczenia"
         android:textSize="20sp"
         android:textStyle="bold" />
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="30dp"
+    >
 
-    <ListView
-        android:id="@+id/completedExercisesListView"
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/completedExercisesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="600dp"/>
+        android:layout_height="600dp"
+        android:background="@color/darkGray"
+        android:padding="16dp"
+        />
+</androidx.cardview.widget.CardView>
+
     <TextView
+        android:id="@+id/dailyExerciseCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:paddingBottom="10dp"
+        android:layout_marginTop="20dp"
         android:text="Dzisiaj zrobiłes:"
         android:textSize="20sp"
         android:textStyle="bold"

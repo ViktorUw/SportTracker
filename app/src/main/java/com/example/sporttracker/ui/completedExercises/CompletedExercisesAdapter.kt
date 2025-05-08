@@ -4,21 +4,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sporttracker.R
 import com.example.sporttracker.models.ExerciseResultWithExercise
+import com.example.sporttracker.models.exerciseResult.CompletedExercise
 import com.example.sporttracker.models.exerciseResult.ExerciseResult
 import java.text.SimpleDateFormat
 import java.util.Locale
-
-class CompletedExercisesAdapter(private var exercises: List<ExerciseResultWithExercise>) :
+class CompletedExercisesAdapter(private var exercises: List<CompletedExercise>) :
     RecyclerView.Adapter<CompletedExercisesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val exerciseName: TextView = view.findViewById(R.id.textExerciseName)
-        val exerciseResult: TextView = view.findViewById(R.id.editTextExerciseResult)
+        val exerciseResult: TextView = view.findViewById(R.id.textExerciseResult)
         val exerciseDate: TextView = view.findViewById(R.id.textExerciseDate)
+        val deleteBtn: Button = view.findViewById(R.id.buttonDel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,21 +30,17 @@ class CompletedExercisesAdapter(private var exercises: List<ExerciseResultWithEx
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val exerciseResultWithExercise = exercises[position]
+        val exercise = exercises[position]
 
-
-        holder.exerciseName.text = "Ćwiczenia: ${exerciseResultWithExercise.exercise.name}"
-        holder.exerciseResult.text = "Rezultat: ${exerciseResultWithExercise.exerciseResult.result}"
-
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        holder.exerciseDate.text = "Data: ${exerciseResultWithExercise.exerciseResult.date}"
+        holder.exerciseName.text = "Ćwiczenia: ${exercise.exerciseName}"
+        holder.exerciseResult.text = "Rezultat: ${exercise.result}"
+        holder.exerciseDate.text = "Data: ${exercise.date}"
     }
 
     override fun getItemCount() = exercises.size
 
-    fun updateData(newExercises: List<ExerciseResultWithExercise>) {
+    fun updateData(newExercises: List<CompletedExercise>) {
         exercises = newExercises
         notifyDataSetChanged()
-        Log.d("CompletedExercisesAdapter", "Adapter updated with ${newExercises.size} items")
     }
 }

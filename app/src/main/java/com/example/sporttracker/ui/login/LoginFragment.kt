@@ -25,6 +25,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
@@ -46,14 +47,14 @@ class LoginFragment : Fragment() {
 
 
             userViewModel.loginUser(username, password,
-                onSuccess = { user ->  // Приняли user
+                onSuccess = { user ->
 
 
-                    Toast.makeText(requireContext(), "Вход выполнен!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Witaj!", Toast.LENGTH_SHORT).show()
 
 
                     val bundle = Bundle().apply {
-                        putString("username", username)  // Можно передавать имя пользователя, если нужно
+                        putString("username", username)
                         putInt("userId", user.id)
                     }
                     findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment, bundle)

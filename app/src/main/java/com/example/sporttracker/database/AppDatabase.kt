@@ -30,28 +30,31 @@ abstract class AppDatabase: RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                ).fallbackToDestructiveMigrationFrom()
+                    .build()
                 INSTANCE = instance
 
-//                GlobalScope.launch(Dispatchers.IO){
-//                    val exerciseDao = instance.exerciseDao()
-//                    prepopulateDatabase(exerciseDao)
-//                }
+                GlobalScope.launch(Dispatchers.IO){
+                    val exerciseDao = instance.exerciseDao()
+                    prepopulateDatabase(exerciseDao)
+                }
                 instance
             }
         }
 
         private suspend fun prepopulateDatabase(exerciseDao: ExerciseDao) {
-            val exercises = listOf(
-                Exercise(name = "Bieganie", description = "Bieganie to świetne cardio", imageUrl = "", type = "outdoor"),
-                Exercise(name = "Plank", description = "Ćwiczenie na wzmocnienie core", imageUrl = "", type = "outdoor"),
-                Exercise(name = "Przysiady", description = "Dobre na nogi", imageUrl = "", type = "outdoor"),
-                Exercise(name = "Podskoki", description = "Świetne na rozgrzewkę", imageUrl = "", type = "outdoor"),
-                Exercise(name = "Wyciskanie hantli", description = "Ćwiczenie na klatkę piersiową", imageUrl = "", type = "indoor"),
-                Exercise(name = "Martwy ciąg", description = "Ćwiczenie na plecy", imageUrl = "", type = "indoor"),
-                Exercise(name = "Arnoldki", description = "Ćwiczenie na barki", imageUrl = "", type = "indoor")
-            )
-            exercises.forEach { exerciseDao.insertExercise(it) }
+            if (exerciseDao.getExerciseCount() == 0) {
+                val exercises = listOf(
+                    Exercise(name = "Bieganie", description = "Bieganie to świetne cardio", imageUrl = "running", type = "outdoor"),
+                    Exercise(name = "Plank", description = "Ćwiczenie na wzmocnienie core", imageUrl = "plank", type = "outdoor"),
+                    Exercise(name = "Przysiady", description = "Dobre na nogi", imageUrl = "przysiady", type = "outdoor"),
+                    Exercise(name = "Podskoki", description = "Świetne na rozgrzewkę", imageUrl = "podskoki", type = "outdoor"),
+                    Exercise(name = "Wyciskanie hantli", description = "Ćwiczenie na klatkę piersiową", imageUrl = "wyciskanie", type = "indoor"),
+                    Exercise(name = "Martwy ciąg", description = "Ćwiczenie на plecy", imageUrl = "martwy_ciag", type = "indoor"),
+                    Exercise(name = "Arnoldki", description = "Ćwiczenie на barki", imageUrl = "arnoldki", type = "indoor")
+                )
+                exercises.forEach { exerciseDao.insertExercise(it) }
+            }
         }
     }
 }

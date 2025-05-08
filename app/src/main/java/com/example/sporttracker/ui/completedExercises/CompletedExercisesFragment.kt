@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.sporttracker.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sporttracker.databinding.FragmentCompletedExercisesBinding
+import com.example.sporttracker.models.ExerciseResultWithExercise
 import com.example.sporttracker.models.exerciseResult.ExerciseResultViewModel
 import com.example.sporttracker.ui.WelcomeFragment
 
@@ -17,27 +17,35 @@ class CompletedExercisesFragment : Fragment() {
 
     private lateinit var binding: FragmentCompletedExercisesBinding
     private val exerciseResultViewModel: ExerciseResultViewModel by viewModels()
-    private lateinit var listView: ListView
-    private var userId: Int = WelcomeFragment.GlobalVariables.userId
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CompletedExercisesAdapter
+    private var userId: Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCompletedExercisesBinding.inflate(inflater)
+    ): View {
+        binding = FragmentCompletedExercisesBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        listView = view.findViewById(R.id.completedExercisesListView)
 
+        recyclerView = binding.completedExercisesRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        exerciseResultViewModel.getResults(userId).observe(viewLifecycleOwner) { results ->
+        adapter = CompletedExercisesAdapter(emptyList()) // Порожній список на старті
+        recyclerView.adapter = adapter
 
-            val resultStrings = results.map { "${it.id} - ${it.result} - ${it.date}" }
+        userId = WelcomeFragment.GlobalVariables.userId
 
+        exerciseResultViewModel.getCompletedExercises(userId).observe(viewLifecycleOwner) { results ->
 
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, resultStrings)
-            listView.adapter = adapter
+            adapter.updateData(results) // Оновлення списку у адаптері
         }
+        exerciseResultViewModel.getTodatExercieCount(userId).observe(viewLifecycleOwner) { count ->
+            binding.dailyExerciseCount.text = "Dzisiaj wykonaleś $count ćwiczeń"
+        }
+
 
         return view
     }

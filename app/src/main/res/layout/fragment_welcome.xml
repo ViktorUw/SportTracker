@@ -34,8 +34,9 @@
 
         <Button
             android:id="@+id/buttonGym"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/lightGray"
             android:text="W siłowni"
             android:textSize="23sp"
             android:padding="10dp"
@@ -44,8 +45,9 @@
 
         <Button
             android:id="@+id/buttonOutdoor"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/lightGray"
             android:text="Na zewnątrz"
             android:textSize="23sp"
             android:padding="10dp"
@@ -55,11 +57,12 @@
 
     <Button
         android:id="@+id/AllExercisesButton"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/lightGray"
         android:text="Wszystkie ćwiczenia"
         android:textSize="23sp"
-
+        android:layout_gravity="center"
         android:padding="10dp"
         />
 

@@ -10,6 +10,8 @@ import com.example.sporttracker.models.exercise.Exercise
 @Dao
 interface ExerciseDao {
 
+    @Query("SELECT COUNT(*) FROM exercises")
+    suspend fun getExerciseCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertExercise(exercise: Exercise)

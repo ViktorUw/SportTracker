@@ -17,7 +17,6 @@ import com.example.sporttracker.R
 import com.example.sporttracker.models.exerciseResult.ExerciseResult
 import com.example.sporttracker.models.exerciseResult.ExerciseResultViewModel
 import com.example.sporttracker.ui.WelcomeFragment
-import com.example.sporttracker.utils.SharedPreferencesManager
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -47,7 +46,6 @@ class PerformExerciseFragment : Fragment() {
         buttonSave = view.findViewById(R.id.buttonSaveExercise)
 
 
-        val sharedPrefs = SharedPreferencesManager(requireContext())
         userId = WelcomeFragment.GlobalVariables.userId
 
         exerciseId = arguments?.getInt("exerciseId") ?: 0
@@ -84,7 +82,7 @@ class PerformExerciseFragment : Fragment() {
     }
 
     private fun updateDateInView() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         textViewSelectedDate.text = dateFormat.format(selectedDate.time)
     }
 
@@ -92,20 +90,24 @@ class PerformExerciseFragment : Fragment() {
         val resultText = editTextResult.text.toString().trim()
 
         if (resultText.isEmpty()) {
-            Toast.makeText(requireContext(), "Введите результат упражнения", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Wprowadź rezultat ćwiczenia", Toast.LENGTH_SHORT).show()
             return
         }
+
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(selectedDate.time)
 
         val exerciseResult = ExerciseResult(
             userId = userId,
             exerciseId = exerciseId,
             result = resultText,
-            date = selectedDate.time.toString()
+            date = formattedDate
         )
 
         exerciseResultViewModel.saveResult(exerciseResult)
 
-        Toast.makeText(requireContext(), "Результат сохранен!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Rezultat zapisano!", Toast.LENGTH_SHORT).show()
 
         findNavController().navigateUp()
     }

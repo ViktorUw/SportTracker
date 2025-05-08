@@ -63,6 +63,10 @@
     <fragment
         android:id="@+id/userDataFragment"
         android:name="com.example.sporttracker.UserDataFragment"
-        android:label="Профіль" />
+        android:label="Профіль" >
+        <action
+            android:id="@+id/action_userDataFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

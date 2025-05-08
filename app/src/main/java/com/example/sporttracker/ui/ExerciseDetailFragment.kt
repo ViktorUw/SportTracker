@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.sporttracker.R
 import com.example.sporttracker.models.exercise.Exercise
 import com.example.sporttracker.models.exercise.ExerciseViewModel
+import pl.droidsonroids.gif.GifImageView
 
 class ExerciseDetailFragment : Fragment() {
 
@@ -32,13 +33,15 @@ class ExerciseDetailFragment : Fragment() {
         val exerciseName = arguments?.getString("exercise_name") ?: ""
         exerciseViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 
+        val exerciseUrl = arguments?.getString("imageUrl") ?: ""
+        val urlId = resources.getIdentifier(exerciseUrl,"drawable", requireContext().packageName)
+
         exerciseViewModel.allExercises.observe(viewLifecycleOwner, { exercises ->
             exercise = exercises.find { it.name == exerciseName } ?: return@observe
 
             view.findViewById<TextView>(R.id.textExerciseName).text = exercise.name
             view.findViewById<TextView>(R.id.textExerciseDescription).text = exercise.description
-            // Здесь можно загрузить картинку, например, через Glide или Picasso
-            // Glide.with(this).load(exercise.imageUrl).into(view.findViewById<ImageView>(R.id.imageExercise))
+            view.findViewById<GifImageView>(R.id.gifImageView).setImageResource(urlId)
         })
 
         val buttonPerformExercise = view.findViewById<Button>(R.id.buttonPerformExercise)

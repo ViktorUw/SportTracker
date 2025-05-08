@@ -59,6 +59,7 @@ class ExercisesFragment : Fragment() {
     private fun navigateToExerciseDetail(exercise: Exercise) {
         val bundle = Bundle().apply {
             putString("exercise_name", exercise.name)
+            putString("imageUrl", exercise.imageUrl)
         }
 
         findNavController().navigate(R.id.action_exercisesFragment_to_exerciseDetailFragment, bundle)

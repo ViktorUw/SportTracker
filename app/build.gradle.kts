@@ -47,6 +47,7 @@ kapt {
 
 dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.0")

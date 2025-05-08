@@ -33,7 +33,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 sharedPrefs.saveUsername(user.username) // Сохраняем имя в SharedPreferences
                 withContext(Dispatchers.Main) { onSuccess() }
             } else {
-                withContext(Dispatchers.Main) { onFailure("Имя пользователя уже занято") }
+                withContext(Dispatchers.Main) { onFailure("Użytkownik o takim imieniu juz istnieje!") }
             }
         }
     }
@@ -45,7 +45,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 sharedPrefs.saveUsername(username) // Сохраняем текущего пользователя
                 withContext(Dispatchers.Main) { onSuccess(user) }
             } else {
-                withContext(Dispatchers.Main) { onFailure("Неверные данные для входа") }
+                withContext(Dispatchers.Main) { onFailure("Błedne dane do logowania") }
             }
         }
     }

@@ -10,8 +10,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.sporttracker.models.user.User
 import com.example.sporttracker.models.user.UserViewModel
+import com.example.sporttracker.utils.SharedPreferencesManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -22,6 +25,7 @@ class UserDataFragment : Fragment() {
     private lateinit var editTextBirthdate: EditText
     private lateinit var editTextWeight: EditText
     private lateinit var buttonSave: Button
+    private lateinit var sharedPrefs: SharedPreferencesManager
 
     private lateinit var userViewModel: UserViewModel
 
@@ -31,12 +35,17 @@ class UserDataFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_user_data, container, false)
 
+        val buttonLogout: Button = view.findViewById(R.id.buttonLogout)
+
         editTextUsername = view.findViewById(R.id.editTextUsername)
         editTextBirthdate = view.findViewById(R.id.editTextBirthdate)
         editTextWeight = view.findViewById(R.id.editTextWeight)
         buttonSave = view.findViewById(R.id.buttonSave)
 
+
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+        sharedPrefs = SharedPreferencesManager(requireContext())
 
         loadUserData()
 
@@ -46,6 +55,10 @@ class UserDataFragment : Fragment() {
 
         buttonSave.setOnClickListener {
             saveUserData()
+        }
+
+        buttonLogout.setOnClickListener {
+            logoutUser()
         }
 
         return view
@@ -87,7 +100,7 @@ class UserDataFragment : Fragment() {
         }
     }
 
-    private fun showDatePicker() {
+    fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -102,5 +115,16 @@ class UserDataFragment : Fragment() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+    private fun logoutUser() {
+        // Очищаємо дані користувача
+        sharedPrefs.clearUserData()
+
+        // Переходимо на екран входу
+        findNavController().navigate(R.id.action_userDataFragment_to_loginFragment)
+
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavView).visibility = View.GONE
+        // Закриваємо поточний фрагмент (якщо потрібно)
+//        requireActivity().finish()
     }
 }
