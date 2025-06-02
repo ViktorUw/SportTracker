@@ -1,4 +1,4 @@
-package com.example.sporttracker
+package com.example.sporttracker.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.sporttracker.models.user.User
+import com.example.sporttracker.R
 import com.example.sporttracker.models.user.UserViewModel
+import com.example.sporttracker.models.exerciseResult.ExerciseResultViewModel
+import com.example.sporttracker.ui.WelcomeFragment.GlobalVariables.userId
 import com.example.sporttracker.utils.SharedPreferencesManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
@@ -25,9 +28,15 @@ class UserDataFragment : Fragment() {
     private lateinit var editTextBirthdate: EditText
     private lateinit var editTextWeight: EditText
     private lateinit var buttonSave: Button
+    private lateinit var buttonLogout: Button
     private lateinit var sharedPrefs: SharedPreferencesManager
 
     private lateinit var userViewModel: UserViewModel
+    private lateinit var exerciseResultViewModel: ExerciseResultViewModel
+
+    private lateinit var textMonthlyExerciseCount: TextView
+    private lateinit var textTotalExerciseCount: TextView
+    private lateinit var textPreviousMonthlyExerciseCount: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +44,18 @@ class UserDataFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_user_data, container, false)
 
-        val buttonLogout: Button = view.findViewById(R.id.buttonLogout)
-
         editTextUsername = view.findViewById(R.id.editTextUsername)
         editTextBirthdate = view.findViewById(R.id.editTextBirthdate)
         editTextWeight = view.findViewById(R.id.editTextWeight)
         buttonSave = view.findViewById(R.id.buttonSave)
+        buttonLogout = view.findViewById(R.id.buttonLogout)
 
+        textMonthlyExerciseCount = view.findViewById(R.id.textMonthlyExerciseCount)
+        textTotalExerciseCount = view.findViewById(R.id.textTotalExerciseCount)
+        textPreviousMonthlyExerciseCount = view.findViewById(R.id.textPreviousMonthlyExerciseCount)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        exerciseResultViewModel = ViewModelProvider(this)[ExerciseResultViewModel::class.java]
 
         sharedPrefs = SharedPreferencesManager(requireContext())
 
@@ -60,6 +72,21 @@ class UserDataFragment : Fragment() {
         buttonLogout.setOnClickListener {
             logoutUser()
         }
+
+        userId = WelcomeFragment.GlobalVariables.userId
+
+        exerciseResultViewModel.getTotalExerciseCount(userId).observe(viewLifecycleOwner) { count ->
+            textTotalExerciseCount.text = "Łącznie: $count ćwiczeń"
+        }
+
+        exerciseResultViewModel.getMonthlyExerciseCount(userId).observe(viewLifecycleOwner) { count ->
+            textMonthlyExerciseCount.text = "W tym miesiącu: $count ćwiczeń"
+        }
+
+        exerciseResultViewModel.getPreviousMounthExerciseCount(userId).observe(viewLifecycleOwner) {count ->
+            textPreviousMonthlyExerciseCount.text = "W zeszłym miesiącu wykonałeś: $count ćwiczeń"
+        }
+
 
         return view
     }
@@ -100,7 +127,7 @@ class UserDataFragment : Fragment() {
         }
     }
 
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -116,15 +143,13 @@ class UserDataFragment : Fragment() {
         )
         datePickerDialog.show()
     }
+
     private fun logoutUser() {
-        // Очищаємо дані користувача
+
         sharedPrefs.clearUserData()
+        Toast.makeText(requireContext(), "Nastąpiło Wylogowanie!", Toast.LENGTH_SHORT).show()
 
-        // Переходимо на екран входу
         findNavController().navigate(R.id.action_userDataFragment_to_loginFragment)
-
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavView).visibility = View.GONE
-        // Закриваємо поточний фрагмент (якщо потрібно)
-//        requireActivity().finish()
     }
 }

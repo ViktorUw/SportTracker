@@ -1,4 +1,4 @@
-package com.example.sporttracker.ui.perform_exercise
+package com.example.sporttracker.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.sporttracker.R
 import com.example.sporttracker.models.exerciseResult.ExerciseResult
 import com.example.sporttracker.models.exerciseResult.ExerciseResultViewModel
-import com.example.sporttracker.ui.WelcomeFragment
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -95,7 +94,10 @@ class PerformExerciseFragment : Fragment() {
         }
 
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+//        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+
         val formattedDate = dateFormat.format(selectedDate.time)
 
         val exerciseResult = ExerciseResult(

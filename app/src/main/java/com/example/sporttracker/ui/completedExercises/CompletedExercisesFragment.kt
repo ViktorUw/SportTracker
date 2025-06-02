@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sporttracker.databinding.FragmentCompletedExercisesBinding
-import com.example.sporttracker.models.ExerciseResultWithExercise
 import com.example.sporttracker.models.exerciseResult.ExerciseResultViewModel
 import com.example.sporttracker.ui.WelcomeFragment
 
@@ -21,7 +20,6 @@ class CompletedExercisesFragment : Fragment() {
     private lateinit var adapter: CompletedExercisesAdapter
     private var userId: Int = 0
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,23 +27,31 @@ class CompletedExercisesFragment : Fragment() {
         binding = FragmentCompletedExercisesBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
         recyclerView = binding.completedExercisesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = CompletedExercisesAdapter(emptyList()) // Порожній список на старті
-        recyclerView.adapter = adapter
-
         userId = WelcomeFragment.GlobalVariables.userId
 
+
+        adapter = CompletedExercisesAdapter(emptyList()) { completedExercise ->
+            exerciseResultViewModel.deleteByFields(
+                userId = userId,
+                exerciseId = completedExercise.exerciseId,
+                date = completedExercise.date,
+                result = completedExercise.result
+
+            )
+        }
+        recyclerView.adapter = adapter
+
+
         exerciseResultViewModel.getCompletedExercises(userId).observe(viewLifecycleOwner) { results ->
-
-            adapter.updateData(results) // Оновлення списку у адаптері
-        }
-        exerciseResultViewModel.getTodatExercieCount(userId).observe(viewLifecycleOwner) { count ->
-            binding.dailyExerciseCount.text = "Dzisiaj wykonaleś $count ćwiczeń"
+            adapter.updateData(results)
         }
 
+        exerciseResultViewModel.getTodayExercieCount(userId).observe(viewLifecycleOwner) { count ->
+            binding.dailyExerciseCount.text = "Dzisiaj wykonałeś $count ćwiczeń"
+        }
 
         return view
     }

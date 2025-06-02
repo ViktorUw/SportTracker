@@ -1,6 +1,5 @@
 package com.example.sporttracker.ui.completed_exercises
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sporttracker.R
-import com.example.sporttracker.models.ExerciseResultWithExercise
 import com.example.sporttracker.models.exerciseResult.CompletedExercise
-import com.example.sporttracker.models.exerciseResult.ExerciseResult
-import java.text.SimpleDateFormat
-import java.util.Locale
-class CompletedExercisesAdapter(private var exercises: List<CompletedExercise>) :
-    RecyclerView.Adapter<CompletedExercisesAdapter.ViewHolder>() {
+
+class CompletedExercisesAdapter(
+    private var exercises: List<CompletedExercise>,
+    private val onDeleteClick: (CompletedExercise) -> Unit
+) : RecyclerView.Adapter<CompletedExercisesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val exerciseName: TextView = view.findViewById(R.id.textExerciseName)
@@ -35,7 +33,12 @@ class CompletedExercisesAdapter(private var exercises: List<CompletedExercise>) 
         holder.exerciseName.text = "Ćwiczenia: ${exercise.exerciseName}"
         holder.exerciseResult.text = "Rezultat: ${exercise.result}"
         holder.exerciseDate.text = "Data: ${exercise.date}"
+
+        holder.deleteBtn.setOnClickListener {
+            onDeleteClick(exercise)
+        }
     }
+
 
     override fun getItemCount() = exercises.size
 

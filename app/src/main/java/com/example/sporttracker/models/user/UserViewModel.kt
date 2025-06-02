@@ -67,7 +67,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setUser(user: User) {
-        _user.postValue(user) // 🔥 Обновляем LiveData, UI сразу видит изменения
+        _user.postValue(user)
     }
 
 }

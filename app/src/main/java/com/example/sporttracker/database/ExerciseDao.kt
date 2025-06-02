@@ -17,6 +17,7 @@ interface ExerciseDao {
     fun insertExercise(exercise: Exercise)
 
 
+
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): LiveData<List<Exercise>>
 

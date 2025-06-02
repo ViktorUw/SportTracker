@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/performExerciseFragment"
-        android:name="com.example.sporttracker.ui.perform_exercise.PerformExerciseFragment"
+        android:name="com.example.sporttracker.ui.PerformExerciseFragment"
         android:label="PerformExerciseFragment" />
     <fragment
         android:id="@+id/completedExercisesFragment"
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/userDataFragment"
-        android:name="com.example.sporttracker.UserDataFragment"
+        android:name="com.example.sporttracker.ui.UserDataFragment"
         android:label="Профіль" >
         <action
             android:id="@+id/action_userDataFragment_to_loginFragment"

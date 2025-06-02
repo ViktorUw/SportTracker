@@ -61,5 +61,39 @@
             android:backgroundTint="@color/lightGray"
 
             />
+
     </LinearLayout>
+    <TextView
+        android:id="@+id/textStatisticsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Statystyki"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textTotalExerciseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Łącznie: 0 ćwiczeń"
+        android:textColor="@android:color/white" />
+
+
+    <TextView
+        android:id="@+id/textMonthlyExerciseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W tym miesiącu: 0 ćwiczeń"
+        android:textColor="@android:color/white" />
+
+
+    <TextView
+        android:id="@+id/textPreviousMonthlyExerciseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W poprzednim miesiącu: 0 ćwiczeń"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>
